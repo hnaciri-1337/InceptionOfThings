@@ -1,0 +1,30 @@
+Vagrant.configure("2") do |config|
+  # Lightweight but stable
+  config.vm.box = "ubuntu/jammy64"
+
+  # VM resources (enough for Docker + k3d)
+  config.vm.provider "virtualbox" do |vb|
+    vb.memory = 4096
+    vb.cpus = 2
+  end
+
+  # VM identity
+  config.vm.hostname = "iot-p3"
+
+  # Bind p3 folder into the VM
+  # Host: ./p3  →  VM: /vagrant
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+
+  # Port forwarding
+  # ArgoCD UI
+  config.vm.network "forwarded_port", guest: 8080, host: 8080, auto_correct: true
+
+  # Wil playground app
+  config.vm.network "forwarded_port", guest: 1337, host: 1337, auto_correct: true
+
+  # Basic provisioning (nothing destructive)
+  config.vm.provision "shell", inline: <<-SHELL
+    apt update -y
+    apt install -y curl git
+  SHELL
+end
