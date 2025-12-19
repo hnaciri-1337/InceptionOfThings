@@ -25,6 +25,8 @@ sudo kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-
 
 sudo kubectl create namespace dev
 
+git config --global user.name "hnaciri-1337"
+
 echo "DONE ✅"
 echo "Run: kubectl get pods -n argocd"
 
