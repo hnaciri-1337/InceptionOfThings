@@ -1,11 +1,12 @@
 #!/bin/bash
 set -e
 
-apt update -y
-apt install -y curl
+apt-get update -y
+apt-get install -y curl
+apt-get install -y net-tools
 
 echo "[INSTALL] Installing K3s server..."
-curl -sfL https://get.k3s.io | sh -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="--flannel-iface=enp0s8" sh -
 
 echo "[WAIT] Waiting for K3s API server to be ready..."
 until sudo /usr/local/bin/kubectl get nodes >/dev/null 2>&1; do

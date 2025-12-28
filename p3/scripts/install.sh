@@ -2,16 +2,15 @@
 set -e
 
 echo "[1/6] Installing dependencies..."
-sudo apt update -y
-sudo apt install -y curl ca-certificates gnupg lsb-release
+sudo apt-get update -y
+sudo apt-get install -y curl ca-certificates gnupg lsb-release vim
 
 echo "[2/6] Installing Docker..."
 sudo curl -fsSL https://get.docker.com | sh
 sudo usermod -aG docker $USER
 
 echo "[3/6] Installing kubectl..."
-sudo curl -LO https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl
-sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+curl -Ls https://dl.k8s.io/release/$(curl -Ls https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl | sudo install -o root -g root -m 0755 /dev/stdin /usr/local/bin/kubectl
 
 echo "[4/6] Installing k3d..."
 sudo curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
