@@ -3,7 +3,7 @@ set -e
 
 echo "[1/6] Installing dependencies..."
 sudo apt-get update -y
-sudo apt-get install -y curl ca-certificates gnupg lsb-release vim
+sudo apt-get install -y curl git ca-certificates gnupg lsb-release vim
 
 echo "[2/6] Installing Docker..."
 sudo curl -fsSL https://get.docker.com | sh
